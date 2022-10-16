@@ -1,0 +1,765 @@
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.14
+-- Dumped by pg_dump version 9.6.14
+
+-- Started on 2020-10-08 20:57:56
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 2203 (class 1262 OID 858176)
+-- Name: autumn_java_courses; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE autumn_java_courses WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'English_United States.1252' LC_CTYPE = 'English_United States.1252';
+
+
+ALTER DATABASE autumn_java_courses OWNER TO postgres;
+
+\connect autumn_java_courses
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 1 (class 3079 OID 12387)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2205 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 188 (class 1259 OID 2823797)
+-- Name: actor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.actor (
+    act_id integer NOT NULL,
+    act_fname character varying(40),
+    act_lname character varying(40),
+    act_gender_id integer
+);
+
+
+ALTER TABLE public.actor OWNER TO postgres;
+
+--
+-- TOC entry 186 (class 1259 OID 2823787)
+-- Name: director; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.director (
+    dir_id integer NOT NULL,
+    dir_fname character varying(20),
+    dir_lname character varying(20)
+);
+
+
+ALTER TABLE public.director OWNER TO postgres;
+
+--
+-- TOC entry 196 (class 1259 OID 2823894)
+-- Name: employee; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.employee (
+    emp_id integer,
+    emp_name character varying(20),
+    role_id integer
+);
+
+
+ALTER TABLE public.employee OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 2823792)
+-- Name: gender; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.gender (
+    gender_id integer NOT NULL,
+    gender character varying(10)
+);
+
+
+ALTER TABLE public.gender OWNER TO postgres;
+
+--
+-- TOC entry 191 (class 1259 OID 2823830)
+-- Name: genres; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.genres (
+    gen_id integer NOT NULL,
+    gen_title character varying(20)
+);
+
+
+ALTER TABLE public.genres OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 2823782)
+-- Name: movie; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.movie (
+    mov_id integer NOT NULL,
+    mov_title character varying(50),
+    mov_time character varying(20),
+    mov_lang character varying(50),
+    mov_dt_rel date,
+    mov_rel_country character varying(5)
+);
+
+
+ALTER TABLE public.movie OWNER TO postgres;
+
+--
+-- TOC entry 189 (class 1259 OID 2823807)
+-- Name: movie_cast; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.movie_cast (
+    act_id integer NOT NULL,
+    mov_id integer,
+    role character varying(40)
+);
+
+
+ALTER TABLE public.movie_cast OWNER TO postgres;
+
+--
+-- TOC entry 190 (class 1259 OID 2823817)
+-- Name: movie_direction; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.movie_direction (
+    dir_id integer,
+    mov_id integer
+);
+
+
+ALTER TABLE public.movie_direction OWNER TO postgres;
+
+--
+-- TOC entry 197 (class 1259 OID 2823902)
+-- Name: movie_genres; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.movie_genres (
+    mov_id integer,
+    gen_id integer
+);
+
+
+ALTER TABLE public.movie_genres OWNER TO postgres;
+
+--
+-- TOC entry 193 (class 1259 OID 2823840)
+-- Name: rating; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.rating (
+    mov_id integer,
+    rev_id integer,
+    rev_stars integer
+);
+
+
+ALTER TABLE public.rating OWNER TO postgres;
+
+--
+-- TOC entry 192 (class 1259 OID 2823835)
+-- Name: reviewer; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.reviewer (
+    rev_id integer NOT NULL,
+    rev_name character varying(40)
+);
+
+
+ALTER TABLE public.reviewer OWNER TO postgres;
+
+
+
+--
+-- TOC entry 2188 (class 0 OID 2823797)
+-- Dependencies: 188
+-- Data for Name: actor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (101, ' James                ', ' Stewart              ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (102, ' Deborah              ', ' Kerr                 ', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (103, ' Peter                ', ' OToole               ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (104, ' Robert               ', ' De Niro              ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (105, ' F. Murray            ', ' Abraham              ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (106, ' Harrison             ', ' Ford                 ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (107, ' Nicole               ', ' Kidman               ', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (108, ' Stephen              ', ' Baldwin              ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (109, ' Jack                 ', ' Nicholson            ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (110, ' Mark                 ', ' Wahlberg             ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (111, ' Woody                ', ' Allen                ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (112, ' Claire               ', ' Danes                ', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (113, ' Tim                  ', ' Robbins              ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (114, ' Kevin                ', ' Spacey               ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (115, ' Kate                 ', ' Winslet              ', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (116, ' Robin                ', ' Williams             ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (117, ' Jon                  ', ' Voight               ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (118, ' Ewan                 ', ' McGregor             ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (119, ' Christian            ', ' Bale                 ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (120, ' Maggie               ', ' Gyllenhaal           ', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (121, ' Dev                  ', ' Patel                ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (122, ' Sigourney            ', ' Weaver               ', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (123, ' David                ', ' Aston                ', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (124, ' Ali                  ', ' Astin                ', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (125, 'Kim', 'Novak', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (126, 'Peter', 'Wyngarde', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (127, 'Michael', 'Redgrave', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (128, 'Alec', 'Guiness', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (129, 'Anthony', 'Qui', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (130, 'Meryl', 'Streep', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (131, 'Tom', 'Hulce', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (132, 'Rutger', 'Hauer', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (133, 'Sea', 'Young', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (134, 'Tom', 'Cruise', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (135, 'Gabriel', 'Byrne', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (136, 'Faye', 'Dunaway', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (137, 'Julianne', 'Moore', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (138, 'Diane', 'Keato', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (139, 'Morga', 'Freema', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (140, 'Annette', 'Bening', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (141, 'Leonardo', 'DiCaprio', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (142, 'Matt', 'Damo', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (143, 'Ewe', 'Bremner', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (144, 'Kelly', 'Macdonald', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (145, 'Hugh', 'Jackma', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (146, 'Jake', 'Gyllenhaal', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (147, 'Michael', 'Bieh', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (148, 'Kate', 'Bosworth', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (149, 'Stephe', 'Lang', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (150, 'Zoe', 'Saldana', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (151, 'Mel', 'Gibso', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (152, 'Sophie', 'Marceau', 2);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (153, 'Micheal', 'J.Fox', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (154, 'Christopher', 'Lloyd', 1);
+INSERT INTO public.actor (act_id, act_fname, act_lname, act_gender_id) VALUES (155, 'Claudia', 'Wells', 2);
+
+
+--
+-- TOC entry 2186 (class 0 OID 2823787)
+-- Dependencies: 186
+-- Data for Name: director; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (202, 'Jack', 'Clayton');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (203, 'David', 'Lean');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (204, 'Michael', 'Cimino');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (205, 'Milos', 'Forman');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (206, 'Ridley', 'Scott');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (207, 'Stanley', 'Kubrick');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (208, 'Bryan', 'Singer');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (209, 'Roman', 'Polanski');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (210, 'Paul', 'Thomas Anderson');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (211, 'Woody', 'Allen');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (212, 'Hayao', 'Miyazaki');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (213, 'Frank', 'Darabont');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (214, 'Sam', 'Mendes');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (215, 'James', 'Cameron');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (216, 'Gus', 'Van Sant');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (217, 'John', 'Boorman');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (218, 'Danny', 'Boyle');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (219, 'Christopher', 'Nolan');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (220, 'Richard', 'Kelly');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (221, 'Kevin', 'Spacey');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (222, 'Andrei', 'Tarkovsky');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (223, 'Peter', 'Jackson');
+INSERT INTO public.director (dir_id, dir_fname, dir_lname) VALUES (201, 'Alfred', 'Hitchcock');
+
+
+--
+-- TOC entry 2196 (class 0 OID 2823894)
+-- Dependencies: 196
+-- Data for Name: employee; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.employee (emp_id, emp_name, role_id) VALUES (3, 'lalala', 1);
+INSERT INTO public.employee (emp_id, emp_name, role_id) VALUES (4, 'b]hfghflalalala', NULL);
+INSERT INTO public.employee (emp_id, emp_name, role_id) VALUES (3, 'acoper', 1);
+INSERT INTO public.employee (emp_id, emp_name, role_id) VALUES (4, 'sburke', NULL);
+INSERT INTO public.employee (emp_id, emp_name, role_id) VALUES (1, 'jmurphy', NULL);
+INSERT INTO public.employee (emp_id, emp_name, role_id) VALUES (2, 'ynagase', NULL);
+
+
+--
+-- TOC entry 2187 (class 0 OID 2823792)
+-- Dependencies: 187
+-- Data for Name: gender; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.gender (gender_id, gender) VALUES (1, 'male');
+INSERT INTO public.gender (gender_id, gender) VALUES (2, 'female');
+
+
+--
+-- TOC entry 2191 (class 0 OID 2823830)
+-- Dependencies: 191
+-- Data for Name: genres; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1001, 'Action');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1002, 'Adventure');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1003, 'Animation');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1004, 'Biography');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1005, 'Comedy');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1006, 'Crime');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1007, 'Drama');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1008, 'Horror');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1009, 'Music');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1010, 'Mystery');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1011, 'Romance');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1012, 'Thriller');
+INSERT INTO public.genres (gen_id, gen_title) VALUES (1013, 'War');
+
+
+--
+-- TOC entry 2185 (class 0 OID 2823782)
+-- Dependencies: 185
+-- Data for Name: movie; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (901, ' Vertigo                                          ', '128', ' English         ', '1958-08-24', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (902, ' The Innocents                                    ', '100', ' English         ', '1962-02-19', ' SW');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (903, ' Lawrence of Arabia                               ', '216', ' English         ', '1962-12-11', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (904, ' The Deer Hunter                                  ', '183', ' English         ', '1979-03-08', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (905, ' Amadeus                                          ', '160', ' English         ', '1985-01-07', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (906, ' Blade Runner                                     ', '117', ' English         ', '1982-09-09', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (907, ' Eyes Wide Shut                                   ', '159', ' English         ', NULL, ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (908, ' The Usual Suspects                               ', '106', ' English         ', '1995-08-25', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (909, ' Chinatown                                        ', '130', ' English         ', '1974-08-09', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (910, ' Boogie Nights                                    ', '155', ' English         ', '1998-02-16', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (911, ' Annie Hall                                       ', '93', ' English         ', '1977-04-20', ' USA');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (912, ' Princess Mononoke                                ', '134', ' Japanese        ', '2001-10-19', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (913, ' The Shawshank Redemption                         ', '142', ' English         ', '1995-02-17', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (914, ' American Beauty                                  ', '122', ' English         ', NULL, ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (915, ' Titanic                                          ', '194', ' English         ', '1998-01-23', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (916, ' Good Will Hunting                                ', '126', ' English         ', '1998-06-03', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (917, ' Deliverance                                      ', '109', ' English         ', '1982-10-05', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (918, ' Trainspotting                                    ', '94', ' English         ', '1996-02-23', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (919, ' The Prestige                                     ', '130', ' English         ', '2006-11-10', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (920, ' Donnie Darko                                     ', '113', ' English         ', NULL, ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (921, ' Slumdog Millionaire                              ', '120', ' English         ', '2009-01-09', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (922, ' Aliens                                           ', '137', ' English         ', '1986-08-29', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (923, ' Beyond the Sea                                   ', '118', ' English         ', '2004-11-26', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (924, ' Avatar                                           ', '162', ' English         ', '2009-12-17', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (925, ' Seven Samurai                                    ', '207', ' Japanese        ', '1954-04-26', ' JP');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (926, ' Spirited Away                                    ', '125', ' Japanese        ', '2003-09-12', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (927, ' Back to the Future                               ', '116', ' English         ', '1985-12-04', ' UK');
+INSERT INTO public.movie (mov_id, mov_title, mov_time, mov_lang, mov_dt_rel, mov_rel_country) VALUES (928, ' Braveheart                                       ', '178', ' English         ', '1995-09-08', ' UK');
+
+
+--
+-- TOC entry 2189 (class 0 OID 2823807)
+-- Dependencies: 189
+-- Data for Name: movie_cast; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (101, 901, 'John Scottie Ferguson');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (102, 902, 'Miss Giddens');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (103, 903, 'T.E. Lawrence');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (104, 904, 'Michael');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (105, 905, 'Antonio Salieri');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (106, 906, 'Rick Deckard');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (107, 907, 'Alice Harford');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (108, 908, 'McManus');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (110, 910, 'Eddie Adams');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (111, 911, 'Alvy Singer');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (112, 912, 'San');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (113, 913, 'Andy Dufresne');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (114, 914, 'Lester Burnham');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (115, 915, 'Rose DeWitt Bukater');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (116, 916, 'Sean Maguire');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (117, 917, 'Ed');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (118, 918, 'Renton');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (120, 920, 'Elizabeth Darko');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (121, 921, 'Older Jamal');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (122, 922, 'Ripley');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (114, 923, 'Bobby Darin');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (109, 909, 'J.J. Gittes');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (119, 919, 'Alfred Borden');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (125, 901, 'Madeleine Elster');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (126, 902, 'Peter Quint');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (127, 902, 'The Uncle');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (128, 903, 'Prince Faisal');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (129, 903, 'Auda abu Tayi');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (130, 904, 'Linda');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (131, 905, 'Wolfgang Amadeus Mozart');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (132, 906, 'Roy Batty');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (133, 906, 'Rachael');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (134, 907, 'Dr. William "Bill" Harford');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (135, 908, 'Dean Keaton');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (136, 909, 'Evelyn Cross Mulwray');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (137, 910, 'Maggie');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (138, 911, 'Annie Hall');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (139, 913, 'Ellis Boyd "Red" Redding');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (140, 914, 'Carolyn Burnham');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (141, 915, 'Jack Dawson');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (142, 916, 'Will Hunting');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (143, 918, 'Daniel "Spud" Murphy');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (144, 918, 'Diane Coulston');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (145, 919, 'Robert Angier');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (146, 920, 'Donald "Donnie" Darko');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (147, 922, 'Corporal Dwayne Hicks');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (148, 923, 'Sandra Dee');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (148, 924, 'Jake Sully');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (149, 924, 'Colonel Miles Quaritch');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (150, 924, 'Neytiri');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (151, 925, 'William Wallace');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (152, 925, 'Princess Isabella of France');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (153, 928, 'Marty McFly');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (154, 928, 'Dr. Emmett "Doc" Brown');
+INSERT INTO public.movie_cast (act_id, mov_id, role) VALUES (155, 928, 'Jennifer Parker');
+
+
+--
+-- TOC entry 2190 (class 0 OID 2823817)
+-- Dependencies: 190
+-- Data for Name: movie_direction; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (201, 901);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (202, 902);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (203, 903);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (204, 904);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (205, 905);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (206, 906);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (207, 907);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (208, 908);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (209, 909);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (210, 910);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (211, 911);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (212, 912);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (213, 913);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (214, 914);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (215, 915);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (216, 916);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (217, 917);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (218, 918);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (219, 919);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (220, 920);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (218, 921);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (215, 922);
+INSERT INTO public.movie_direction (dir_id, mov_id) VALUES (221, 923);
+
+
+--
+-- TOC entry 2197 (class 0 OID 2823902)
+-- Dependencies: 197
+-- Data for Name: movie_genres; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (922, 1001);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (917, 1002);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (903, 1002);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (912, 1003);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (911, 1005);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (908, 1006);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (913, 1006);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (926, 1007);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (928, 1007);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (918, 1007);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (921, 1007);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (902, 1008);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (923, 1009);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (907, 1010);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (927, 1010);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (901, 1010);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (914, 1011);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (906, 1012);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (904, 1013);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (924, 1001);
+INSERT INTO public.movie_genres (mov_id, gen_id) VALUES (924, 1002);
+
+
+--
+-- TOC entry 2193 (class 0 OID 2823840)
+-- Dependencies: 193
+-- Data for Name: rating; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (901, 9001, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (902, 9002, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (903, 9003, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (906, 9005, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (924, 9006, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (908, 9007, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (909, 9008, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (910, 9009, 3);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (911, 9010, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (912, 9011, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (914, 9013, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (915, 9001, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (916, 9014, 4);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (925, 9015, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (918, 9016, 3);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (920, 9017, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (921, 9018, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (922, 9019, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (923, 9020, 6);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (901, 9020, 5);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (901, 9013, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (902, 9015, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (902, 9006, 3);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (902, 9004, 4);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (903, 9008, 9);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (904, 9015, 10);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (904, 9012, 6);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (905, 9019, 9);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (906, 9013, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (906, 9014, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (907, 9011, 3);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (907, 9018, 4);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (908, 9005, 6);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (908, 9008, 4);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (908, 9017, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (909, 9015, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (909, 9004, 5);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (910, 9010, 1);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (911, 9008, 10);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (911, 9017, 9);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (912, 9014, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (913, 9004, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (913, 9001, 6);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (914, 9015, 9);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (914, 9014, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (915, 9007, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (915, 9009, 6);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (916, 9010, 1);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (917, 9010, 10);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (918, 9018, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (919, 9001, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (919, 9006, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (920, 9014, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (920, 9003, 9);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (921, 9009, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (922, 9013, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (924, 9008, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (924, 9010, 10);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (925, 9012, 7);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (926, 9015, 8);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (927, 9008, 9);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (927, 9017, 3);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (928, 9010, 10);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (928, 9013, 10);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (928, 9019, 10);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (928, 9012, 10);
+INSERT INTO public.rating (mov_id, rev_id, rev_stars) VALUES (908, 9003, 10);
+
+
+--
+-- TOC entry 2192 (class 0 OID 2823835)
+-- Dependencies: 192
+-- Data for Name: reviewer; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9001, ' Righty Sock');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9002, ' Jack Malvern');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9003, ' Flagrant Baronessa');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9004, ' Alec Shaw');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9005, NULL);
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9006, ' Victor Woeltjen');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9007, ' Simon Wright');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9008, ' Neal Wruck');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9009, ' Paul Monks');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9010, ' Mike Salvati');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9011, NULL);
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9012, ' Wesley S. Walker');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9013, ' Sasha Goldshtein');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9014, ' Josh Cates');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9015, ' Krug Stillo');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9016, ' Scott LeBrun');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9017, ' Hannah Steele');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9018, ' Vincent Cadena');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9019, ' Brandt Sponseller');
+INSERT INTO public.reviewer (rev_id, rev_name) VALUES (9020, ' Richard Adams');
+
+
+
+
+
+--
+-- TOC entry 2054 (class 2606 OID 2823801)
+-- Name: actor actor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.actor
+    ADD CONSTRAINT actor_pkey PRIMARY KEY (act_id);
+
+
+--
+-- TOC entry 2050 (class 2606 OID 2823791)
+-- Name: director director_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.director
+    ADD CONSTRAINT director_pkey PRIMARY KEY (dir_id);
+
+
+--
+-- TOC entry 2052 (class 2606 OID 2823796)
+-- Name: gender gender_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.gender
+    ADD CONSTRAINT gender_pkey PRIMARY KEY (gender_id);
+
+
+--
+-- TOC entry 2056 (class 2606 OID 2823834)
+-- Name: genres genres_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genres
+    ADD CONSTRAINT genres_pkey PRIMARY KEY (gen_id);
+
+
+--
+-- TOC entry 2048 (class 2606 OID 2823786)
+-- Name: movie movie_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movie
+    ADD CONSTRAINT movie_pkey PRIMARY KEY (mov_id);
+
+
+--
+-- TOC entry 2058 (class 2606 OID 2823839)
+-- Name: reviewer reviewer_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reviewer
+    ADD CONSTRAINT reviewer_pkey PRIMARY KEY (rev_id);
+
+
+--
+-- TOC entry 2059 (class 2606 OID 2823802)
+-- Name: actor actor_act_gender_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.actor
+    ADD CONSTRAINT actor_act_gender_id_fkey FOREIGN KEY (act_gender_id) REFERENCES public.gender(gender_id);
+
+
+--
+-- TOC entry 2061 (class 2606 OID 2823897)
+-- Name: movie_cast fk_act_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movie_cast
+    ADD CONSTRAINT fk_act_id FOREIGN KEY (act_id) REFERENCES public.actor(act_id);
+
+
+--
+-- TOC entry 2060 (class 2606 OID 2823812)
+-- Name: movie_cast movie_cast_mov_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movie_cast
+    ADD CONSTRAINT movie_cast_mov_id_fkey FOREIGN KEY (mov_id) REFERENCES public.movie(mov_id);
+
+
+--
+-- TOC entry 2062 (class 2606 OID 2823820)
+-- Name: movie_direction movie_direction_dir_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movie_direction
+    ADD CONSTRAINT movie_direction_dir_id_fkey FOREIGN KEY (dir_id) REFERENCES public.director(dir_id);
+
+
+--
+-- TOC entry 2063 (class 2606 OID 2823825)
+-- Name: movie_direction movie_direction_mov_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movie_direction
+    ADD CONSTRAINT movie_direction_mov_id_fkey FOREIGN KEY (mov_id) REFERENCES public.movie(mov_id);
+
+
+--
+-- TOC entry 2067 (class 2606 OID 2823910)
+-- Name: movie_genres movie_genres_gen_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movie_genres
+    ADD CONSTRAINT movie_genres_gen_id_fkey FOREIGN KEY (gen_id) REFERENCES public.genres(gen_id);
+
+
+--
+-- TOC entry 2066 (class 2606 OID 2823905)
+-- Name: movie_genres movie_genres_mov_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movie_genres
+    ADD CONSTRAINT movie_genres_mov_id_fkey FOREIGN KEY (mov_id) REFERENCES public.movie(mov_id);
+
+
+--
+-- TOC entry 2064 (class 2606 OID 2823843)
+-- Name: rating rating_mov_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rating
+    ADD CONSTRAINT rating_mov_id_fkey FOREIGN KEY (mov_id) REFERENCES public.movie(mov_id);
+
+
+--
+-- TOC entry 2065 (class 2606 OID 2823848)
+-- Name: rating rating_rev_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rating
+    ADD CONSTRAINT rating_rev_id_fkey FOREIGN KEY (rev_id) REFERENCES public.reviewer(rev_id);
+
+
+-- Completed on 2020-10-08 20:57:57
+
+--
+-- PostgreSQL database dump complete
+--
+
