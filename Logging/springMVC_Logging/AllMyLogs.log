@@ -1,0 +1,10 @@
+[ INFO] 2022-10-26 09:02:17,407 c.e.s.SpringCursUnivApplication [restartedMain] Starting SpringCursUnivApplication using Java 1.8.0_181 on EN411782 with PID 16136 (C:\Users\ehajdeu\OneDrive - ENDAVA\Desktop\EndavaJavaCourses\Logging\springMVC_Logging\target\classes started by ehajdeu in C:\Users\ehajdeu\OneDrive - ENDAVA\Desktop\EndavaJavaCourses\Logging\springMVC_Logging)
+[ INFO] 2022-10-26 09:02:17,408 c.e.s.SpringCursUnivApplication [restartedMain] The following 1 profile is active: "dev"
+[ INFO] 2022-10-26 09:02:19,695 c.e.s.SpringCursUnivApplication [restartedMain] Started SpringCursUnivApplication in 2.546 seconds (JVM running for 3.25)
+[ INFO] 2022-10-26 09:02:54,266 c.e.s.service.StudentService [http-nio-8080-exec-4] Student: com.endava.springcursuniv.model.Student@27927467, has been saved
+[ INFO] 2022-10-26 09:02:54,276 c.e.s.service.StudentService [http-nio-8080-exec-5] Getting all students...
+[ INFO] 2022-10-26 09:02:54,335 c.e.s.service.StudentService [http-nio-8080-exec-5] There are 1 students in the list
+[ INFO] 2022-10-26 09:03:08,820 c.e.s.service.StudentService [http-nio-8080-exec-6] Student with id=1 was found
+[ INFO] 2022-10-26 09:03:08,821 c.e.s.service.StudentService [http-nio-8080-exec-6] Student with id=1 was found
+[ERROR] 2022-10-26 09:03:13,186 c.e.s.service.StudentService [http-nio-8080-exec-7] Student with id=2 was not found...
+[ERROR] 2022-10-26 09:03:13,187 c.e.s.controller.StudentController [http-nio-8080-exec-7] Invalid Student ID: 2
