@@ -1,6 +1,9 @@
 package com.endava.restraining.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +12,9 @@ import javax.persistence.*;
 @Table(uniqueConstraints={
         @UniqueConstraint(columnNames = {"country", "city"})
 })
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LocationEntity {
     @Id
     @Column(name = "id", nullable = false)

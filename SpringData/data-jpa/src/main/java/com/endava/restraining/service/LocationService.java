@@ -30,10 +30,13 @@ public class LocationService {
         locationDAO.save(location);
     }
 
-    public List<LocationDto> getAll(Long limit) {
+    public List<LocationDto> getAll(Long limit) throws Exception {
         List<LocationDto> locations = new ArrayList<>();
         List<LocationEntity> daoLocations = locationDAO.findAll();
         if (limit != null) {
+            if (limit < 0) {
+                throw new Exception("Limit is negative!");
+            }
             for (int i=0; i<limit; i++) {
                 LocationDto location = new LocationDto();
                 location.setId(daoLocations.get(i).getId());

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/location")
-public class LocationRest {
+public class LocationRestController {
     
     private final LocationService locationService;
     
